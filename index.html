@@ -1,54 +1,81 @@
-<h1><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> leismusic555</title>
+    
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="star_55dp_9DC384_FILL0_wght400_GRAD0_opsz48.ico"/>
+    <link rel="icon" href="favicon.ico"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,165;1,9..40,165&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
     <div class="bloc">
-        <video autoplay="autoplay" muted="" loop="infinite" src="video provisoire.MP4"></video>
-    <header>
-        <h1 style="color: rgb(255, 255, 255)"> leismusic555 </h1>
-    
-
-        <div class="button">
-        <button> <img src="icone pour jouer la musique.png" alt="icon"> </button>
+        <video autoplay="autoplay" muted="" loop="infinite" src="video-provisoire.mp4"></video>
         
-    </header>
+        <header style="position: relative;">
+            <h1 style="text-align: center;"><img src="logo-leismusic.png" alt="leismusic555" style="height: 8em; width: auto; display: block; margin: 0 auto;"></h1>
+            
+            <!-- Bouton de lecture musical -->
+            <div style="position: absolute; bottom: 37px; left: calc(25% + 525px); transform: translateX(-50%); z-index: 5;">
+                <button id="playButton" style="background: transparent; border: none; cursor: pointer; padding: 0;">
+                    <img src="bouton-play.png" alt="Play Music" style="height: 5em; width: auto;">
+                </button>
+            </div>
+            
+            <!-- Élément audio (à configurer avec votre fichier audio) -->
+            <audio id="musicPlayer" preload="auto">
+                <!-- REMPLACEZ "votre-musique.mp3" par le nom de votre fichier audio -->
+                <source src="votre-musique.mp3" type="audio/mpeg">
+                <source src="votre-musique.wav" type="audio/wav">
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+        </header>
 
+        <main> 
+            <h2 style="color: rgb(255, 255, 255); margin-left: 2em; margin-right: 2em; font-size: 1.8em; margin-bottom: 1.5em;"> <u>about:</u> </h2>
+            <article>
+                <h3 style="color: rgb(255, 255, 255); margin-left: calc(2em + 13px); margin-right: 2em; font-size: 1.4em; margin-bottom: 1em;"> art created by lei </h3>
+                <p style="color: rgb(255, 255, 255); margin-left: calc(2em + 19px); margin-right: 2em; font-size: 1.2em; margin-top: 0; margin-bottom: 0;"> self-taught music producer, editor, designer and many more... </p>
+            </article>
+        </main>
 
-    <main> 
-        <h2 style="color: rgb(255, 255, 255)"> about: </h2>
-        <article>
-            <h3 style="color: rgb(255, 255, 255)"> art created by lei </h3>
-            <p>  </p>
-            <p style="color: rgb(255, 255, 255)"> bla blou blih</p>
-        </article>
-  
-    </main>
-    <d1>
+        <footer> 
+            <div class="footer">
+                <ul style="color: white;"> 
+                    <li>contact</li>
+                    <li><a href="mailto: leismusic555@gmail.com" style="color: white;">mail</a></li>
+                    <li><a href="https://youtube.com/@555lei?si=6KaM4HmzIZms2iBr" style="color: white;">youtube</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 
-
-
-    </d1>
-    <footer> 
-        <div class="footer">
-        <ul style="color: rgb(255, 255, 255)"> 
-            contact </ul>
-            <li style=" color:white"> <a href="mailto: leismusic555@gmail.com">mail </a></li>
-            <li style="color:white"><a href="https://youtube.com/@555lei?si=6KaM4HmzIZms2iBr">youtube</a></li>
-
-
-        </ul>
-    </footer>
+    <script>
+        // Script pour le bouton de lecture musical
+        document.getElementById('playButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Empêche tout comportement par défaut
+            event.stopPropagation(); // Empêche la propagation de l'événement
+            
+            const musicPlayer = document.getElementById('musicPlayer');
+            
+            if (musicPlayer.paused) {
+                musicPlayer.play().catch(function(error) {
+                    console.log('Erreur de lecture:', error);
+                    alert('Veuillez d\'abord ajouter un fichier audio dans le code HTML');
+                });
+            } else {
+                musicPlayer.pause();
+            }
+        });
+        
+        // Empêcher le double-clic sur le bouton
+        document.getElementById('playButton').addEventListener('dblclick', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+    </script>
 </body>
-</html></h1>
- </div>
+</html>
