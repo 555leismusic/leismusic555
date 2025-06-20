@@ -19,17 +19,17 @@
             <h1 style="text-align: center;"><img src="logo-leismusic.png" alt="leismusic555" style="height: 8em; width: auto; display: block; margin: 0 auto;"></h1>
             
             <!-- Bouton de lecture musical -->
-            <div style="position: absolute; bottom: 37px; left: calc(25% + 525px); transform: translateX(-50%); z-index: 5;">
+            <div style="position: absolute; top: 9em; left: calc(50% - 0em); z-index: 5;">
                 <button id="playButton" style="background: transparent; border: none; cursor: pointer; padding: 0;">
                     <img src="bouton-play.png" alt="Play Music" style="height: 5em; width: auto;">
                 </button>
+
             </div>
             
-            <!-- Élément audio (à configurer avec votre fichier audio) -->
+            <!-- Élément audio -->
             <audio id="musicPlayer" preload="auto">
-                <!-- REMPLACEZ "votre-musique.mp3" par le nom de votre fichier audio -->
-                <source src="votre-musique.mp3" type="audio/mpeg">
-                <source src="votre-musique.wav" type="audio/wav">
+                <source src="musique site.mp3" type="audio/mpeg">
+                <source src="musique site.wav" type="audio/wav">
                 Votre navigateur ne supporte pas l'élément audio.
             </audio>
         </header>
@@ -54,27 +54,104 @@
     </div>
 
     <script>
-        // Script pour le bouton de lecture musical
-        document.getElementById('playButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Empêche tout comportement par défaut
-            event.stopPropagation(); // Empêche la propagation de l'événement
-            
+        // Script simple pour le bouton de lecture musical
+        document.addEventListener('DOMContentLoaded', function() {
+            const playButton = document.getElementById('playButton');
             const musicPlayer = document.getElementById('musicPlayer');
+            const playButtonImg = playButton.querySelector('img');
             
-            if (musicPlayer.paused) {
-                musicPlayer.play().catch(function(error) {
-                    console.log('Erreur de lecture:', error);
-                    alert('Veuillez d\'abord ajouter un fichier audio dans le code HTML');
-                });
-            } else {
-                musicPlayer.pause();
+            let isProcessing = false; // Variable pour éviter les clics multiples
+            
+            // Fonction pour mettre à jour l'apparence du bouton
+            function updateButtonAppearance(isPlaying) {
+                if (isPlaying) {
+                    playButtonImg.style.opacity = '0.7';
+                    playButtonImg.style.transform = 'scale(0.95)';
+                } else {
+                    playButtonImg.style.opacity = '1';
+                    playButtonImg.style.transform = 'scale(1)';
+                }
             }
-        });
-        
-        // Empêcher le double-clic sur le bouton
-        document.getElementById('playButton').addEventListener('dblclick', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
+            
+            // Gestionnaire de clic simple avec protection contre les conflits
+            playButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Empêcher les comportements par défaut
+                e.stopPropagation(); // Empêcher la propagation de l'événement
+                
+                // Éviter les clics multiples rapides
+                if (isProcessing) {
+                    console.log('Clic ignoré - traitement en cours');
+                    return;
+                }
+                
+                console.log('Bouton cliqué !'); // Test pour vérifier si le clic fonctionne
+                
+                isProcessing = true; // Marquer comme en cours de traitement
+                
+                if (musicPlayer.paused) {
+                    console.log('Audio en pause, tentative de lecture...');
+                    // Définir le volume avant de jouer
+                    musicPlayer.volume = 0.8;
+                    console.log('Volume défini à:', musicPlayer.volume);
+                    
+                    // Attendre un petit délai pour éviter les conflits
+                    setTimeout(function() {
+                        // Jouer la musique
+                        musicPlayer.play().then(function() {
+                            console.log('Musique démarrée avec succès');
+                            updateButtonAppearance(true);
+                            isProcessing = false; // Libérer le verrou
+                        }).catch(function(error) {
+                            console.log('Erreur de lecture:', error.name, error.message);
+                            if (error.name === 'NotAllowedError') {
+                                alert('Cliquez sur le bouton pour démarrer la musique');
+                            } else {
+                                console.error('Autre erreur:', error);
+                            }
+                            isProcessing = false; // Libérer le verrou même en cas d'erreur
+                        });
+                    }, 100); // Délai de 100ms
+                } else {
+                    console.log('Audio en cours, mise en pause...');
+                    // Mettre en pause
+                    musicPlayer.pause();
+                    updateButtonAppearance(false);
+                    console.log('Musique en pause');
+                    isProcessing = false; // Libérer le verrou
+                }
+            });
+            
+            // Synchroniser l'interface avec l'état de l'audio
+            musicPlayer.addEventListener('play', function() {
+                updateButtonAppearance(true);
+            });
+            
+            musicPlayer.addEventListener('pause', function() {
+                updateButtonAppearance(false);
+            });
+            
+            musicPlayer.addEventListener('ended', function() {
+                updateButtonAppearance(false);
+            });
+            
+            // Diagnostics
+            musicPlayer.addEventListener('loadeddata', function() {
+                console.log('Audio chargé - Durée:', musicPlayer.duration + 's');
+                console.log('Volume initial:', musicPlayer.volume);
+                console.log('Audio muted:', musicPlayer.muted);
+            });
+            
+            musicPlayer.addEventListener('error', function(e) {
+                console.error('Erreur de chargement audio:', e);
+            });
+            
+
+            
+            // Vérifier si les éléments sont bien trouvés
+            console.log('Script initialisé');
+            console.log('Bouton trouvé:', playButton ? 'OUI' : 'NON');
+            console.log('Audio trouvé:', musicPlayer ? 'OUI' : 'NON');
+            console.log('Image bouton trouvée:', playButtonImg ? 'OUI' : 'NON');
         });
     </script>
 </body>
