@@ -13,7 +13,12 @@
 
 <body>
     <div class="bloc">
-        <video autoplay="autoplay" muted="" loop="infinite" src="video-provisoire.mp4"></video>
+        <video autoplay muted loop playsinline>
+            <source src="video-background.mov" type="video/quicktime">
+            <source src="video-background.mp4" type="video/mp4">
+            <source src="video-background.webm" type="video/webm">
+            Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
         
         <header style="position: relative;">
             <h1 style="text-align: center;"><img src="logo-leismusic.png" alt="leismusic555" style="height: 8em; width: auto; display: block; margin: 0 auto;"></h1>
@@ -29,7 +34,7 @@
             <!-- Élément audio -->
             <audio id="musicPlayer" preload="auto">
                 <source src="musique site.mp3" type="audio/mpeg">
-                <source src="musique site.wav" type="audio/wav">
+                <source src="musique site.wav" type="audio/wav">ç
                 Votre navigateur ne supporte pas l'élément audio.
             </audio>
         </header>
