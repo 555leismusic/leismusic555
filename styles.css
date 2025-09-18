@@ -62,5 +62,126 @@
 }
 
 
+/* ===== Onglet gauche (effet glass) ===== */
+.left-tab {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.left-tab__toggle {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 12px 10px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    outline: none;
+}
+
+.left-tab__toggle:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.left-tab__panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    background: rgba(0, 0, 0, 0.25);
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.left-tab--open .left-tab__panel {
+    transform: translateX(0);
+}
+
+.left-tab__title {
+    margin: 8px 0 6px;
+    font-size: 16px;
+    opacity: .9;
+}
+
+.left-tab__link {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.left-tab__link:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+/* Burger mobile */
+.left-tab__burger {
+    position: fixed;
+    left: 12px;
+    top: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: none;
+    z-index: 11;
+}
+
+.left-tab__burger .burger-lines,
+.left-tab__burger .burger-lines::before,
+.left-tab__burger .burger-lines::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    content: "";
+}
+
+.left-tab__burger .burger-lines::before {
+    transform: translate(-50%, -8px);
+}
+
+.left-tab__burger .burger-lines::after {
+    transform: translate(-50%, 6px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .left-tab { top: auto; transform: none; }
+    .left-tab__toggle { display: none; }
+    .left-tab__burger { display: block; }
+}
+
+@media (hover: hover) {
+    .left-tab:hover .left-tab__panel { transform: translateX(0); }
+}
+
+
 
 
