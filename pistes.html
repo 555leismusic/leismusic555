@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pistes audios</title>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,165;1,9..40,165&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      background: radial-gradient(1200px 800px at 0% 0%, rgba(255,255,255,0.06), rgba(0,0,0,0.9));
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    header, main { width: min(900px, 92vw); margin: 0 auto; }
+    header { display: flex; align-items: center; gap: 12px; padding: 16px 0 6px; }
+    header a { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); padding: 8px 12px; border-radius: 8px; }
+    h1 { font-size: 28px; margin: 12px 0 8px; }
+    .track { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 14px; margin: 10px 0; }
+    .track h3 { margin: 0 0 8px; font-size: 16px; opacity: .95; }
+    audio { width: 100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">← Retour</a>
+    <h1>pistes audios</h1>
+  </header>
+  <main>
+    <div class="track">
+      <h3>musique du site</h3>
+      <audio controls preload="metadata">
+        <source src="musique site.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'élément audio.
+      </audio>
+    </div>
+
+    <div class="track">
+      <h3>extrait</h3>
+      <audio controls preload="metadata">
+        <source src="rhodes-test.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'élément audio.
+      </audio>
+    </div>
+
+    <div class="track">
+      <h3>interlude.</h3>
+      <audio controls preload="metadata">
+        <source src="interlude..mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'élément audio.
+      </audio>
+    </div>
+  </main>
+</body>
+</html>
