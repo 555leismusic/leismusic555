@@ -17,6 +17,18 @@
             <source src="video-bg-15fps.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture vidéo.
         </video>
+
+        <!-- Onglet gauche (flottant) -->
+        <div class="left-tab" id="leftTab">
+            <button class="left-tab__toggle" id="leftTabToggle" aria-expanded="false" aria-controls="leftPanel">Pistes</button>
+            <button class="left-tab__burger" id="leftTabBurger" aria-expanded="false" aria-controls="leftPanel" aria-label="Ouvrir le menu">
+                <span class="burger-lines" aria-hidden="true"></span>
+            </button>
+            <nav class="left-tab__panel" id="leftPanel" aria-hidden="true">
+                <h4 class="left-tab__title">Explorer</h4>
+                <a class="left-tab__link" href="pistes.html">pistes audios</a>
+            </nav>
+        </div>
         
         <header style="position: relative;">
             <h1 style="text-align: center;"><img src="logo-leismusic.png" alt="leismusic555" style="height: 8em; width: auto; display: block; margin: 0 auto;"></h1>
@@ -148,13 +160,59 @@
                 console.error('Erreur de chargement audio:', e);
             });
             
-
-            
             // Vérifier si les éléments sont bien trouvés
             console.log('Script initialisé');
             console.log('Bouton trouvé:', playButton ? 'OUI' : 'NON');
             console.log('Audio trouvé:', musicPlayer ? 'OUI' : 'NON');
             console.log('Image bouton trouvée:', playButtonImg ? 'OUI' : 'NON');
+
+            // --- Onglet gauche: logique d'ouverture/fermeture ---
+            const leftTab = document.getElementById('leftTab');
+            const leftToggle = document.getElementById('leftTabToggle');
+            const leftBurger = document.getElementById('leftTabBurger');
+            const leftPanel = document.getElementById('leftPanel');
+
+            function openLeftTab() {
+                leftTab.classList.add('left-tab--open');
+                if (leftToggle) leftToggle.setAttribute('aria-expanded', 'true');
+                if (leftBurger) leftBurger.setAttribute('aria-expanded', 'true');
+                if (leftPanel) leftPanel.setAttribute('aria-hidden', 'false');
+            }
+            function closeLeftTab() {
+                leftTab.classList.remove('left-tab--open');
+                if (leftToggle) leftToggle.setAttribute('aria-expanded', 'false');
+                if (leftBurger) leftBurger.setAttribute('aria-expanded', 'false');
+                if (leftPanel) leftPanel.setAttribute('aria-hidden', 'true');
+            }
+            function toggleLeftTab() {
+                if (leftTab.classList.contains('left-tab--open')) {
+                    closeLeftTab();
+                } else {
+                    openLeftTab();
+                }
+            }
+
+            [leftToggle, leftBurger].forEach(btn => {
+                if (btn) btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleLeftTab();
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!leftTab.contains(e.target)) {
+                    closeLeftTab();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLeftTab();
+            });
+
+            if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+                leftTab.addEventListener('mouseenter', openLeftTab);
+                leftTab.addEventListener('mouseleave', closeLeftTab);
+            }
         });
     </script>
 </body>
